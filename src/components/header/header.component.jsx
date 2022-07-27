@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
 import './header.styles.scss'
 
+import {connect} from 'react-redux';
+
 const HeaderComp = ({user}) => {
 
     return(
@@ -21,6 +23,7 @@ const HeaderComp = ({user}) => {
                 {
                     user?
                 <div className="option" onClick={()=> auth.signOut()}>Sign out</div>
+                
                 :
                 <Link className="option" to='/signin' >Sign in</Link>
                 }
@@ -32,4 +35,9 @@ const HeaderComp = ({user}) => {
     )
 }
 
-export default HeaderComp;
+const mapStateToProps = state => ({
+    user: state.user.currentUser
+})
+
+
+export default connect(mapStateToProps) (HeaderComp);

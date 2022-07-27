@@ -7,18 +7,14 @@ import { Routes, Route } from 'react-router-dom'
 import React from 'react';
 import { getDoc } from 'firebase/firestore';
 import { auth , createUserProfileDocument} from './firebase/firebase';
-//import {userPorfile} from '../src/firebase/firebase.utils'
+
+import {connect} from'react-redux';
+import setCurrentUser from './redux/user/user.action';
+
 
 
 class App extends React.Component {
-  constructor(){
-    super();
 
-    this.state = {
-      currentUser: null
-    }
-  }
-  
   componentDidMount(){
     this.unsubscribeFromAuth = auth.onAuthStateChanged( async(userAuth)=>{
       if (userAuth){
@@ -26,14 +22,13 @@ class App extends React.Component {
 
         const snapshot = await getDoc(userRef);
 
-        this.setState({
-          currentUser:{
+        this.props.setCurrentUser({
             ...snapshot.data()
           }
-        }, ()=> {console.log(this.state)})
+        )
       }
       else
-        this.setState({ currentUser: null})
+        this.props.setCurrentUser(userAuth)
     })
   }
   componentWillUnmount(){
@@ -43,7 +38,7 @@ class App extends React.Component {
   render(){
   return (
     <div>
-    <HeaderComp user={this.state.currentUser}/> 
+    <HeaderComp /> 
         <Routes>
           <Route path='/' element={<Homepage />} />
           <Route path='/shop' element={<Shop />} />
@@ -55,4 +50,8 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const setDispatchToProps = dispatch =>({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+})
+
+export default connect(null,setDispatchToProps)(App);
