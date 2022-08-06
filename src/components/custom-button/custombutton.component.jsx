@@ -2,11 +2,12 @@ import React from "react";
 
 import './custombutton.styles.scss'
 
-const CustomButton = ({children, iswithgoogle, ...otherprops})=> {
+const CustomButton = ({children, iswithgoogle, inverted, ...otherprops})=> {
+    
     return(
         
-            <button className={`${ iswithgoogle ? 'google':''} custom-button`} 
-            {...otherprops} >{children}</button>
+            <button className={`${ inverted ? 'inverted':''} ${ iswithgoogle ? 'google':''} custom-button`} 
+             {...otherprops} >{children}</button>
         
     )
 }

@@ -1,0 +1,9 @@
+const actionTypes = {
+    SET_CURRENT_USER: "SET_CURRENT_USER",
+    CART_HIDDEN : "CART_HIDDEN",
+    ADD_ITEM_TO_CART: "ADD_ITEM_TO_CART",
+    REMOVE_ITEM : "REMOVE_ITEM",
+    DECREASE_ITEM: "DECREASE_ITEM"
+}
+
+export default actionTypes;
