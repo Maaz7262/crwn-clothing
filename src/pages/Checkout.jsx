@@ -6,11 +6,13 @@ import CustomButton from '../components/custom-button/custombutton.component'
 
 import CheckOutItem from '../components/checkOutItem/checkOutItem.components'
 import { selectCartTotal, selectAddItem } from '../redux/cart/cart.selector'
+import {initialState} from '../redux/cart/cart.action'
 
-const CheckOut = ({addItem, cartTotal}) => {
+const CheckOut = ({cartItem, cartTotal, dispatch}) => {
     const STRIPE_API_KEY='pk_test_51LTgC4DJs5S1XnDM05ePqHPmLdXy4ZgPSQA6VvO4FOeX6QmQBg8l5fub5hLsqwQBQ31nedR51HQWgH9MWR28q6N400fP1hcgIG'
     const onToken = token => {
         console.log(token)
+        dispatch(initialState())
         alert('Payment Successfull...!')
     }
     return (
@@ -33,10 +35,10 @@ const CheckOut = ({addItem, cartTotal}) => {
                 </div>
             </div>
             {
-                addItem.map( item => <CheckOutItem key={item.id} addItem={item}/>)
+                cartItem.map( item => <CheckOutItem key={item.id} addItem={item}/>)
             }
             <div className='total'>
-                {addItem.length ? 
+                {cartItem.length ? 
                 <span>TOTAL: ${cartTotal}</span>:''}
             </div>
             <StripeCheckout 
@@ -53,7 +55,7 @@ const CheckOut = ({addItem, cartTotal}) => {
             amount={cartTotal * 100} // cents
             stripeKey={STRIPE_API_KEY}
             >
-                {addItem.length? 
+                {cartItem.length? 
                 <CustomButton>CheckOut Now</CustomButton>: <><h2>Cart Empty</h2></> }
             </StripeCheckout>
         </div>
@@ -61,7 +63,7 @@ const CheckOut = ({addItem, cartTotal}) => {
 }
 
 const mapStateToPros = createStructuredSelector({
-    addItem: selectAddItem,
+    cartItem: selectAddItem,
     cartTotal: selectCartTotal
 })
 

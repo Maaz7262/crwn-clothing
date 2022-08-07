@@ -3,7 +3,8 @@ const actionTypes = {
     CART_HIDDEN : "CART_HIDDEN",
     ADD_ITEM_TO_CART: "ADD_ITEM_TO_CART",
     REMOVE_ITEM : "REMOVE_ITEM",
-    DECREASE_ITEM: "DECREASE_ITEM"
+    DECREASE_ITEM: "DECREASE_ITEM",
+    INITIAL_STATE: "INITIAL_STATE"
 }
 
 export default actionTypes;

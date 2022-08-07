@@ -18,3 +18,7 @@ export const decQty = item => ({
     type : actionTypes.DECREASE_ITEM,
     payload: item
 })
+
+export const initialState = () =>({
+    type: actionTypes.INITIAL_STATE
+})
