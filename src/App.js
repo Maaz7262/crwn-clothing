@@ -6,21 +6,27 @@ import SignInSignUp from './pages/signInsignUp';
 import CheckOut from './pages/Checkout';
 import ShopPreview from "./components/shopPreview/shopPreview.components"
 import CategoryPage from "./pages/Category";
+import withSpinner from './components/withSpinner/spinner.component';
 
 import { Routes, Route , Navigate} from 'react-router-dom'
 import React from 'react';
 import { getDoc } from 'firebase/firestore';
 import { auth , createUserProfileDocument} from './firebase/firebase';
-import { selectUser } from './redux/user/user.selector';
+
+
 
 import {connect} from'react-redux';
 import setCurrentUser from './redux/user/user.action';
 
 
 
+const ShopPreviewSpinner = withSpinner(ShopPreview);
+const CategoryPageSpinner = withSpinner(CategoryPage);
+
 class App extends React.Component {
 
   componentDidMount(){
+
     this.unsubscribeFromAuth = auth.onAuthStateChanged( async(userAuth)=>{
       if (userAuth){
         const userRef = await createUserProfileDocument(userAuth);
@@ -40,6 +46,7 @@ class App extends React.Component {
     this.unsubscribeFromAuth()
   }
 
+  
   render(){
   return (
     <div>
@@ -47,8 +54,8 @@ class App extends React.Component {
         <Routes>
           <Route path='/' element={<Homepage />} />
           <Route path='/shop' element={<Shop />} >
-            <Route index element={<ShopPreview />}/>
-            <Route path=':categoryId' element={<CategoryPage />} />
+            <Route index element={<ShopPreviewSpinner   />}/>
+            <Route path=':categoryId' element={<CategoryPageSpinner />} />
           </Route>
           <Route path='/checkout' element={<CheckOut />} />
           <Route path='*' element={(<div>404 Page Not Found.</div>)} />
@@ -63,7 +70,8 @@ class App extends React.Component {
 }
 
 const mapStateToPros = state =>({
-  user: selectUser(state)
+  
+  
 })
 
 const setDispatchToProps = dispatch =>({
