@@ -36,14 +36,15 @@
       display: flex;
       justify-content: space-between;
       font-size: 18px;
+      padding: 0 5px;
   
       .name {
-        width: 90%;
+        width: 90vw;
         margin-bottom: 15px;
       }
   
       .price {
-        width: 10%;
+        width: 10vw;
       }
     }
     
