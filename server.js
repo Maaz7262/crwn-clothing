@@ -104,7 +104,9 @@ app.get('/order/success', async (req, res) => {
   const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
   //const customer = await stripe.customers.retrieve(session.id);
   //res.send({session: session})
-  res.send(`<html><body><h1>Thanks for your order, ${session.customer_details.name}!</h1></body></html>`);
+  res.send(`<html><body><h1 style="text-align:center;">Thanks for your order, ${session.customer_details.name}!</h1>
+  <div style="text-align:center;"><a href=${URL} style="color:red;text-decoration:none;text-align:center">
+  Go Back to shoping</a></div></body></html>`);
 });
 
 
