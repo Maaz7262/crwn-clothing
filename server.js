@@ -18,7 +18,7 @@ app.use(bodyparser.urlencoded({extended: true}))
 if (process.env.NODE_ENV !== 'production') {
     app.use(express.static(path.join(__dirname,'client/build')));
 
-    app.get('/', function(req, res){
+    app.get('*', function(req, res){
         res.sendFile(path.join(__dirname,'client/build', 'index.html'));
     })
 
@@ -92,7 +92,7 @@ app.post('/create-checkout-session', async (req, res) => {
         },
         ],
         mode: 'payment',
-        success_url: "http://localhost:5000/order/success?session_id={CHECKOUT_SESSION_ID}",
+        success_url: {URL},
         cancel_url: `${URL}/checkout`,
     });
 
