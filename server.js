@@ -15,7 +15,7 @@ app.use(cors());
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({extended: true}))
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV !== 'production') {
     app.use(express.static(path.join(__dirname,'client/build')));
 
     app.get('/', function(req, res){
@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === 'production') {
 
 }
 
-const URL= process.env.CLIENT_SERVER;
+
 
 app.post('/create-checkout-session', async (req, res) => {
     const sprice = req.body.cartTotal * 100
@@ -92,8 +92,8 @@ app.post('/create-checkout-session', async (req, res) => {
         },
         ],
         mode: 'payment',
-        success_url: {URL},
-        cancel_url: `${URL}/checkout`,
+        success_url: `http://localhost:${port}/order/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `http://localhost:${port}/checkout`,
     });
 
     res.send({url: session.url});
@@ -101,11 +101,12 @@ app.post('/create-checkout-session', async (req, res) => {
 })
 
 app.get('/order/success', async (req, res) => {
+  url = `http://localhost:${port}/shop`
   const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
   //const customer = await stripe.customers.retrieve(session.id);
   //res.send({session: session})
   res.send(`<html><body><h1 style="text-align:center;">Thanks for your order, ${session.customer_details.name}!</h1>
-  <div style="text-align:center;"><a href=${URL} style="color:red;text-decoration:none;text-align:center">
+  <div style="text-align:center;"><a href=${url} style="color:red;text-decoration:none;text-align:center">
   Go Back to shoping</a></div></body></html>`);
 });
 
