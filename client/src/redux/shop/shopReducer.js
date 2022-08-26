@@ -1,4 +1,3 @@
-import SHOP_DATA from "../../pages/shop.data"
 import actiontypes from "./ActionTypes" 
 const InitialState = {
     shopData: null,

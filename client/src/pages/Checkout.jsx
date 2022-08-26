@@ -1,20 +1,33 @@
 import './checkout.styles.scss'
 import {connect} from 'react-redux'
 import { createStructuredSelector } from 'reselect'
-import StripeCheckout from 'react-stripe-checkout'
 import CustomButton from '../components/custom-button/custombutton.component'
 
 import CheckOutItem from '../components/checkOutItem/checkOutItem.components'
 import { selectCartTotal, selectAddItem } from '../redux/cart/cart.selector'
 import {initialState} from '../redux/cart/cart.action'
+import axios from 'axios'
+
 
 const CheckOut = ({cartItem, cartTotal, dispatch}) => {
-    const STRIPE_API_KEY='pk_test_51LTgC4DJs5S1XnDM05ePqHPmLdXy4ZgPSQA6VvO4FOeX6QmQBg8l5fub5hLsqwQBQ31nedR51HQWgH9MWR28q6N400fP1hcgIG'
-    const onToken = token => {
-        console.log(token)
-        dispatch(initialState())
-        alert('Payment Successfull...!')
+    
+    console.log(cartTotal)
+    const payWithStripe = async()=>{
+       await axios.post('create-checkout-session',{
+            id: 1,
+            cartTotal: cartTotal
+        }).then(res =>{
+            if (res.data.url) {
+                window.location.href =res.data.url;
+                dispatch(initialState())
+            }
+            
+        }).catch(e =>{
+            console.log(e.message)
+        })
     }
+        
+    
     return (
         <div className='checkout-page'>
             <div className='checkout-header'>
@@ -41,23 +54,13 @@ const CheckOut = ({cartItem, cartTotal, dispatch}) => {
                 {cartItem.length ? 
                 <span>TOTAL: ${cartTotal}</span>:''}
             </div>
-            <StripeCheckout 
-            allowRememberMe
-            shippingAddress
-            billingAddress
-            currency='USD'
-            name="Crown Clothing Pk." // the pop-in header title
-            description="Wear Quality" // the pop-in header subtitle
-            image="https://stripe.com/img/documentation/checkout/marketplace.png" // the pop-in header image (default none)
-            ComponentClass="div"
-            panelLabel="Pay Now" 
-            token={onToken}
-            amount={cartTotal * 100} // cents
-            stripeKey={STRIPE_API_KEY}
-            >
-                {cartItem.length? 
-                <CustomButton>CheckOut Now</CustomButton>: <><h2>Cart Empty</h2></> }
-            </StripeCheckout>
+            <p className='errorMessage'></p>
+            {cartItem.length? 
+                <CustomButton onClick= {payWithStripe} >Pay With Stripe</CustomButton>: <><h2>Cart Empty</h2></> }
+            <div className='test-card'><h3>Please use the following details for your payment</h3>
+            <span className='card'>4242 4242 4242 4242</span><br />
+            <span>01/23</span> <span>CVC: 123</span>
+            </div>
         </div>
     )
 }

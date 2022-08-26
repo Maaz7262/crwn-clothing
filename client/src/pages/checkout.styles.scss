@@ -5,7 +5,21 @@
     flex-direction: column;
     align-items: center;
     margin: 50px auto 0;
-  
+
+    button {
+      margin-top: 10px;
+    }
+
+    .test-card{
+      color:red;
+      margin-top: 35px;
+      text-align: center;
+
+      .card{
+        font-size: 20px;
+        margin-top: 10px;
+      }
+    }  
     .checkout-header {
       width: 100%;
       padding: 10px 0;

@@ -17,6 +17,7 @@ import { auth , createUserProfileDocument} from './firebase/firebase';
 
 import {connect} from'react-redux';
 import setCurrentUser from './redux/user/user.action';
+import { selectUser } from './redux/user/user.selector';
 
 
 
@@ -70,7 +71,7 @@ class App extends React.Component {
 }
 
 const mapStateToPros = state =>({
-  
+  user : selectUser(state)
   
 })
 

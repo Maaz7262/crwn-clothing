@@ -12,20 +12,35 @@ class SignIn extends React.Component {
         
         this.state = {
             email: '',
-            password : ''
+            password : '',
+            errorMessage: undefined 
         }
     }
 
+    getSignin = async (email,password) =>{
+        await signInWithEmailAndPassword(auth, email, password)
+        .then( res => console.log("on success",res))
+        .catch( error => {
+            console.log(error.message);
+            if (error.message.includes("auth/wrong-password")){
+                this.setState({ errorMessage: "You Entered Wrong Password"})
+            }
+            else if (error.message.includes("auth/user-not-found")){
+                this.setState({ errorMessage: "You don't have any account"})
+            }
+        })
+    }
     handleSubmit = (event) => {
         event.preventDefault();
 
         const {email, password} = this.state
 
-        signInWithEmailAndPassword(auth, email, password)
+        this.getSignin(email, password)
 
         this.setState({
             email: '',
-            password : ''})
+            password : ''   
+        })
     }
 
     handleChange = (event) =>{
@@ -57,6 +72,8 @@ class SignIn extends React.Component {
                     value = {this.state.password}
                     required
                     />
+                    <p className="errorMessage">{this.state.errorMessage ?
+                    `*${this.state.errorMessage}`: ''}</p>
                     <div className="btns">
 
                     <CustomButton type='submit' > Sign in</CustomButton>

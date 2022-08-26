@@ -8,6 +8,11 @@
     .btns{
         display: flex;
         justify-content: space-between;
-    
+    }
+    .errorMessage{
+        color: orangered;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        margin: 0px 10px 10px;
+        font-size: 12px;
     }
 }
