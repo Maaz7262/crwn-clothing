@@ -34,13 +34,13 @@ class SignUp  extends React.Component{
             const errorMessage = error.message;
             console.log(errorCode);
             console.log(errorMessage)
-            if (errorCode == "auth/weak-password"){
+            if (errorCode === "auth/weak-password"){
                 this.setState({errorMessage:'Please enter a strong password...'})
             }
-            else if (errorCode == "auth/email-already-in-use"){
+            else if (errorCode === "auth/email-already-in-use"){
                 this.setState({errorMessage:'User already exists...'})
             }
-            else if (errorCode == 'auth/network-request-failed'){
+            else if (errorCode === 'auth/network-request-failed'){
                 this.setState({errorMessage:'Check your internet connection...'})
             }
           });
