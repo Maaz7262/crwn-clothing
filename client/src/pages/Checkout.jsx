@@ -11,15 +11,16 @@ import axios from 'axios'
 
 const CheckOut = ({cartItem, cartTotal, dispatch}) => {
     
-    console.log(cartTotal)
     const payWithStripe = async()=>{
        await axios.post('create-checkout-session',{
             id: 1,
             cartTotal: cartTotal
         }).then(res =>{
-            if (res.data.url) {
-                window.location.href =res.data.url;
-                dispatch(initialState())
+            console.log(res.data.session);
+            if (res.data) {
+                
+                window.location.href =res.data.session;
+                dispatch(initialState());
             }
             
         }).catch(e =>{

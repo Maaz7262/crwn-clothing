@@ -96,19 +96,19 @@ app.post('/create-checkout-session', async (req, res) => {
         cancel_url: `http://localhost:${port}/checkout`,
     });
 
-    res.send({session: session});
+    res.send({session: session.url});
 
 })
 
 app.get('/order/success', async (req, res) => {
   url = `http://localhost:${port}/shop`
   const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
-  res.send({session:session})
+  //res.send({session:session})
   //const customer = await stripe.customers.retrieve(session.id);
   //res.send({session: session})
-  /*res.send(`<html><body><h1 style="text-align:center;">Thanks for your order, ${session.customer_details.name}!</h1>
+  res.send(`<html><body><h1 style="text-align:center;">Thanks for your order, ${session.customer_details.name}!</h1>
   <div style="text-align:center;"><a href=${url} style="color:red;text-decoration:none;text-align:center">
-  Go Back to shoping</a></div></body></html>`);*/
+  Go Back to shoping</a></div></body></html>`);
 });
 
 
