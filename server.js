@@ -92,16 +92,17 @@ app.post('/create-checkout-session', async (req, res) => {
         },
         ],
         mode: 'payment',
-        success_url: `http://localhost:${port}/order/success?session_id={CHECKOUT_SESSION_ID}`,
+        success_url: `http://localhost:${port}`,
         cancel_url: `http://localhost:${port}/checkout`,
     });
 
     res.send({session: session.url});
+    //res.redirect(session.url)
 
 })
 
 app.get('/order/success', async (req, res) => {
-  url = `http://localhost:${port}/shop`
+  url = `http://localhost:3000/shop`
   const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
   //res.send({session:session})
   //const customer = await stripe.customers.retrieve(session.id);
