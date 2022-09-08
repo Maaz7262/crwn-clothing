@@ -1,15 +1,16 @@
 import './App.css';
 import Homepage from './pages/homepage';
 import HeaderComp from './components/header/header.component';
-import Shop from './pages/shop';
-import SignInSignUp from './pages/signInsignUp';
+//import Shop from './pages/shop';
+//import SignInSignUp from './pages/signInsignUp';
 import CheckOut from './pages/Checkout';
 import ShopPreview from "./components/shopPreview/shopPreview.components"
 import CategoryPage from "./pages/Category";
 import withSpinner from './components/withSpinner/spinner.component';
+import Spinner from './components/spinner/Spinner.component';
 
 import { Routes, Route , Navigate} from 'react-router-dom'
-import React from 'react';
+import React, {lazy, Suspense} from 'react';
 import { getDoc } from 'firebase/firestore';
 import { auth , createUserProfileDocument} from './firebase/firebase';
 
@@ -21,8 +22,14 @@ import { selectUser } from './redux/user/user.selector';
 
 
 
+
 const ShopPreviewSpinner = withSpinner(ShopPreview);
 const CategoryPageSpinner = withSpinner(CategoryPage);
+
+//Lazy Loading components
+
+const Shop= lazy(() => import('./pages/shop' ));
+const SignInSignUp= lazy(() => import('./pages/signInsignUp' ));
 
 class App extends React.Component {
 
@@ -52,6 +59,8 @@ class App extends React.Component {
   return (
     <div>
     <HeaderComp /> 
+    <Suspense fallback={<Spinner />}>
+
         <Routes>
           <Route path='/' element={<Homepage />} />
           <Route path='/shop' element={<Shop />} >
@@ -65,6 +74,7 @@ class App extends React.Component {
 
         </Routes>
         
+    </Suspense>
     </div>
   );
   }

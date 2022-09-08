@@ -16,5 +16,17 @@
         margin-bottom: 30px;
       }
     }
+    
   }
+
+@media  screen and (max-width:780px) {
+  .collection-page {
+    align-items: center;
+    
+    .items{
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+}
   
