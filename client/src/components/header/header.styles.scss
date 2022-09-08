@@ -10,7 +10,8 @@
     width: 70px;
     padding: 25px;
   }
-
+  
+  
   .options {
     width: 50%;
     height: 100%;
@@ -23,5 +24,20 @@
       text-transform: uppercase;
       cursor: pointer;
     }
+
+    @media screen and (max-width:780px) {
+      .option{
+        padding: 10px;
+      }
+    }
+  }
+  @media screen and (max-width:780px) {
+    .logo-container{
+      padding:10px;
+    }
+    .options{
+      width: 80%;
+    }
+    
   }
 }

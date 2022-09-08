@@ -29,7 +29,7 @@
         justify-content: center;
       }
     }
-  
+    
     .collection-footer {
       width: 100%;
       height: 5%;
@@ -47,6 +47,21 @@
         width: 10vw;
       }
     }
+    @media screen and (max-width:780px) {
+      .addtoCart{
+      display: flex;
+      justify-content: center;
+      }
+      .collection-footer{
+        padding: 0px;
+        font-size: 15px;
+        font-weight: 550;
+      }
+    }
     
   }
-  
+  @media screen and (max-width:780px) {
+    .collection-item {
+      width: 40vw; 
+    }
+  }

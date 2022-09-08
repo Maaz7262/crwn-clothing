@@ -10,6 +10,7 @@
     background-position: center;
     background-size: cover;
     overflow: hidden;
+    flex: 1;
 
     &:hover {
       cursor: pointer;
@@ -28,6 +29,7 @@
     &.large{
       height: 380px;
     }
+    
   
     &:first-child {
       margin-right: 7.5px;
@@ -36,6 +38,7 @@
     &:last-child {
       margin-left: 7.5px;
     }
+    
   
     .content {
       height: 90px;
@@ -61,3 +64,11 @@
       }
     }
   }
+
+  @media screen and (max-width:780px) {
+    .menu-item.large {
+      height: 240px;
+      
+    }
+  }
+  

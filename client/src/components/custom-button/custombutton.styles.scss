@@ -34,10 +34,20 @@
       color: black;
       border: 1px solid black;
       &:hover {
-        font-size: 15px;
+        
         background-color: black;
         color: white;
       }
     }
   }
+
+@media screen and (max-width:780px) {
+  .custom-button{
+    min-width: unset;
+    padding: 0 10px;
+    font-size: 10px;
+    flex: 0 1;
+  }
+  
+}
   
